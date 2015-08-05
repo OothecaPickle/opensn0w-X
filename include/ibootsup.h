@@ -24,6 +24,7 @@
 
 int		ibootsup_dynapatch (void);
 int		ibootsup_map_file (const char *filename);
+int     ibootsup_set_image (struct mapped_image img);
 int		ibootsup_write_file (const char* filename);
 int		ibootsup_map_buffer (uint8_t* buf, int size);
 

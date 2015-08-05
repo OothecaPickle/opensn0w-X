@@ -295,6 +295,19 @@ ibootsup_map_file (const char *filename)
 	return 0;
 }
 
+int
+ibootsup_set_image (struct mapped_image img)
+{
+	current_image = img;
+
+	if (!ibootsup_verify_arm_image ()) {
+		free (current_image.image);
+		return -EBADF;
+	}
+
+	return 0;
+}
+
 static inline uint8_t *
 ibootsup_off2pat_patch (int offset, uint8_t * patch, int bufsize, int patchsize)
 {

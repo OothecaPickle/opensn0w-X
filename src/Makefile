@@ -1,5 +1,5 @@
-CPPFLAGS=-I../include
-CFLAGS=-m32 -O2 -pipe -Wall -Wno-unused-function -D__target_arm__
+CPPFLAGS=-I../include -std=c99
+CFLAGS= -O2 -pipe -Wall -Wno-unused-function -D__target_arm__
 TOOLS=iboot_patcher kernel_patcher image3_loader
 IBOOT_PATCHER_OBJECTS=ibootsup.o patch.o util.o iboot_patcher.o
 KERNEL_PATCHER_OBJECTS=patch.o util.o kcache.o macho_loader.o kernel_patcher.o

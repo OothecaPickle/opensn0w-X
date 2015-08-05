@@ -102,6 +102,29 @@ int image3_get_tag_data(void *image, uint32_t tag, void **out_data,
     return false;
 }
 
+int image3_iterate_tags(void *image, tag_callback_t callback)
+{
+    Image3Header *root = (Image3Header *) image;
+    if (root->magic != kImage3Magic) {
+        printf("image3_iterate_tags: this is not an Img3 file 0x%08x\n",
+               (unsigned int)root->magic);
+        return false;
+    }
+
+    Image3Header *tag = (Image3Header *) ((Image3RootHeader *) image + 1);
+
+    while (image3_off(root, tag) < root->size) {
+
+        callback(tag);
+
+        tag = (Image3Header *) add_ptr2(tag, tag->size);        
+    }
+
+    /*printf("size: 0x%x\nend of last tag is 0x%x\n", root->size, (uint32_t) tag + tag->size - (uint32_t) image);*/
+
+    return true;    
+}
+
 int image3_map_file(const char* filename, void** buffer)
 {
     struct stat buf;
@@ -114,6 +137,9 @@ int image3_map_file(const char* filename, void** buffer)
         return -ENOENT;
 
     *buffer = (uint8_t *) _xmalloc (buf.st_size);
+
+    printf("buffer size:0x%x\n", (uint32_t) buf.st_size);
+
     fread ((void *) *buffer, buf.st_size, 1, fp);
     fclose (fp);
 
