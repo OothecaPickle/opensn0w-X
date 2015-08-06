@@ -86,7 +86,7 @@ typedef struct Image3RootHeader {
     Image3ShshExtension shshExtension;
 } __attribute__ ((packed)) Image3RootHeader;
 
-typedef void (*tag_callback_t)(Image3Header*);
+typedef void (*tag_callback_t)(Image3Header*, Image3RootHeader*);
 
 extern int image3_fast_get_type(void *buffer, uint32_t * type);
 extern Image3Header *image3_find_tag(void *image, uint32_t find_tag);

@@ -115,7 +115,7 @@ int image3_iterate_tags(void *image, tag_callback_t callback)
 
     while (image3_off(root, tag) < root->size) {
 
-        callback(tag);
+        callback(tag, (Image3RootHeader *) root);
 
         tag = (Image3Header *) add_ptr2(tag, tag->size);        
     }
