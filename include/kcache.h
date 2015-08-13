@@ -27,5 +27,6 @@ char*	kcache_get_darwin_version (void);
 int		kcache_map_file (const char *filename);
 int		kcache_dynapatch (void);
 int		kcache_write_file (const char *filename);
+int     kcache_decompress_kernel (void *compressedKernel, void *decompressedKernel, int *decompressed_size);
 
 #endif /* __KCACHE_H */
